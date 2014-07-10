@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+        >
+
+    <EditText
+            android:id="@+id/amountView"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:hint="Сумма"
+            android:digits="0123456789."
+            android:inputType="numberDecimal"/>
+
+    <EditText android:id="@+id/descView"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:hint="Назначение"
+            android:inputType="textCapSentences"/>
+
+    <Button
+            android:id="@+id/btnPayment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Оплатить"
+            />
+
+
+    <Button
+            android:id="@+id/btnHistory"
+            android:layout_marginTop="20dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="История операций"
+            />
+</LinearLayout>
+
