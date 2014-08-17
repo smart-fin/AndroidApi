@@ -26,13 +26,5 @@
             android:text="Оплатить"
             />
 
-
-    <Button
-            android:id="@+id/btnHistory"
-            android:layout_marginTop="20dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="История операций"
-            />
 </LinearLayout>
 
