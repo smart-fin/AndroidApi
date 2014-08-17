@@ -39,12 +39,15 @@ intent.putExtra("desc", desc);
 startActivityForResult(intent, PAYMENT_RESULT_CODE);
 ```
 
-PAYMENT_RESULT_CODE - requestCode, см. в методе onActivityResult http://developer.android.com/reference/android/app/Activity.html#onActivityResult(int,%20int,%20android.content.Intent)
 
-packageName:String - имя пакета (обязательный)
-amount:double - сумма платежа (обязательный)
-desc:String - назначение платежа (обязательный)
-Pin:String – код доступа (не обязательный)
+Имя параметра|Тип|Описание|Обязательный или нет
+-------------|---|--------|-------------------
+packageName | String | имя пакета вашего приложения | обязательный
+amount | double | сумма платежа | обязательный
+desc | String | назначение платежа | обязательный
+Pin | String | код доступа к Мобильному терминалу, при отсутствии в параметрах запроса будет запрошен у пользователя | не обязательный
+
+PAYMENT_RESULT_CODE - requestCode, см. описание методов [startActivityForResult]( https://developer.android.com/reference/android/app/Activity.html#startActivityForResult(android.content.Intent,%20int) ) и [onActivityResult]( https://developer.android.com/reference/android/app/Activity.html#onActivityResult(int,%20int,%20android.content.Intent) ) 
 
 #### Получение ответа
 
