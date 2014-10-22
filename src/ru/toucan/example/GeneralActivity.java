@@ -1,6 +1,7 @@
 package ru.toucan.example;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,22 +24,52 @@ public class GeneralActivity extends Activity {
             public void onClick(View v) {
                 EditText amountView = (EditText) findViewById(R.id.amountView);
                 if (amountView.getText().length() == 0) {
-                    Toast.makeText(GeneralActivity.this, "Введите сумму платежа", Toast.LENGTH_LONG);
+                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_amount), Toast.LENGTH_LONG);
                     return;
                 }
                 try {
                     Double.parseDouble(amountView.getText().toString());
                 } catch (NumberFormatException e) {
-                    Toast.makeText(GeneralActivity.this, "Сумма платежа введена неверно", Toast.LENGTH_LONG);
+                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_correct_amount), Toast.LENGTH_LONG);
                     return;
                 }
                 EditText descView = (EditText) findViewById(R.id.descView);
                 if (descView.getText().length() == 0) {
-                    Toast.makeText(GeneralActivity.this, "Введите назначение платежа", Toast.LENGTH_LONG);
+                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_desc), Toast.LENGTH_LONG);
                     return;
 
                 }
                 makePayment(Double.parseDouble(amountView.getText().toString()), descView.getText().toString());
+            }
+        });
+findViewById(R.id.btnPaymentCash).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText amountView = (EditText) findViewById(R.id.amountView);
+                if (amountView.getText().length() == 0) {
+                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_amount), Toast.LENGTH_LONG);
+                    return;
+                }
+                try {
+                    Double.parseDouble(amountView.getText().toString());
+                } catch (NumberFormatException e) {
+                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_correct_amount), Toast.LENGTH_LONG);
+                    return;
+                }
+                EditText descView = (EditText) findViewById(R.id.descView);
+                if (descView.getText().length() == 0) {
+                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_desc), Toast.LENGTH_LONG);
+                    return;
+
+                }
+                makePaymentCash(Double.parseDouble(amountView.getText().toString()), descView.getText().toString());
+            }
+        });
+
+        findViewById(R.id.btnHistory).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHistory();
             }
         });
 
@@ -56,7 +87,7 @@ public class GeneralActivity extends Activity {
      */
     private void makePayment(double amount, String desc) {
 
-        Intent intent = new Intent("ru.toucan.CALL_FOR_PAYMENT");
+        Intent intent = new Intent(Actions.PAYMENT_ACTION);
         // packageName - имя пакета для возвращения результата проведения платежа
         intent.putExtra("packageName", getPackageName());
         intent.putExtra("Pin", "1111");
@@ -64,7 +95,52 @@ public class GeneralActivity extends Activity {
         intent.putExtra("amount", amount);
         // desc - назначение платежа
         intent.putExtra("desc", desc);
-        startActivityForResult(intent, PAYMENT_RESULT_CODE);
+        // desc - назначение платежа
+        intent.putExtra("paymentType", "card");
+        try {
+            startActivityForResult(intent, PAYMENT_RESULT_CODE);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(GeneralActivity.this, e.getMessage(), Toast.LENGTH_LONG);
+        }
+    }
+    private void makePaymentCash(double amount, String desc) {
+
+        Intent intent = new Intent(Actions.PAYMENT_ACTION);
+        // packageName - имя пакета для возвращения результата проведения платежа
+        intent.putExtra("packageName", getPackageName());
+        intent.putExtra("Pin", "1111");
+        // amount - сумма платежа
+        intent.putExtra("amount", amount);
+        // desc - назначение платежа
+        intent.putExtra("desc", desc);
+        // desc - назначение платежа
+        intent.putExtra("paymentType", "cash");
+        try {
+            startActivityForResult(intent, PAYMENT_RESULT_CODE);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(GeneralActivity.this, e.getMessage(), Toast.LENGTH_LONG);
+        }
+    }
+
+    /**
+     * Запрос на просмотр истории платежей
+     * <p/>
+     * Если клиент не был активирован, откроется окно активации
+     * После успешной активации нужно будет настроить код доступа и затем проводить платеж
+     * <p/>
+     * Если клиент уже был ранее активирован, будет запрошен пин-код
+     */
+    private void showHistory() {
+
+        Intent intent = new Intent(Actions.HISTORY_ACTION);
+        // packageName - имя пакета для возвращения результата проведения платежа
+        intent.putExtra("packageName", getPackageName());
+        intent.putExtra("Pin", "1111");
+        try{
+        startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(GeneralActivity.this, e.getMessage(), Toast.LENGTH_LONG);
+        }
     }
 
     public static String getVersionName(Context context) {
@@ -86,6 +162,7 @@ public class GeneralActivity extends Activity {
      * Result network_is_available = new Result(5, "network_is_available");
      * Result system_service_error = new Result(6, "system_service_error");
      * Result unknown_error = new Result(100, "unknown_error");
+     * Result cancel_activation = new Result(101, "cancel_activation");
      * Result cancel_operation = new Result(200, "Отмена операции");
      * Result waiting_timeout = new Result(400, "waiting_timeout");
      * Result reader_not_init = new Result(1001, "Ридер не инициализирован");
@@ -98,6 +175,7 @@ public class GeneralActivity extends Activity {
      * Result payment_not_confirmed = new Result(15, "Платеж не подтвержден");
      * Result payment_canceled = new Result(16, "Платеж отменен");
      */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
