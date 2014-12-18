@@ -5,6 +5,20 @@
     android:orientation="vertical">
 
     <EditText
+        android:id="@+id/pinView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_pin"
+        android:inputType="numberDecimal" />
+
+    <AbsoluteLayout
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray" />
+
+    <EditText
         android:id="@+id/amountView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -17,6 +31,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="Назначение"
+        android:inputType="textCapSentences" />
+    <CheckBox
+        android:id="@+id/checkboxView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/local_fiscalization"
         android:inputType="textCapSentences" />
 
     <Button
@@ -43,6 +63,19 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="История" />
+
+    <AbsoluteLayout
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/btnGetReceipt4Print"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Получить фискальные данные" />
 
 
 </LinearLayout>

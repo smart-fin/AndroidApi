@@ -7,12 +7,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.Serializable;
+import java.util.HashMap;
+
+import ru.toucan.merchant.business.domain.print.Receipt4Print;
+import ru.toucan.merchant.business.domain_external.Payment;
 
 public class GeneralActivity extends Activity {
 
     private static final int PAYMENT_RESULT_CODE = 0x101010;
+    private static final int GET_RECEIPT_RESULT_CODE = 0x202020;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +50,7 @@ public class GeneralActivity extends Activity {
                 makePayment(Double.parseDouble(amountView.getText().toString()), descView.getText().toString());
             }
         });
-findViewById(R.id.btnPaymentCash).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btnPaymentCash).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText amountView = (EditText) findViewById(R.id.amountView);
@@ -73,48 +81,79 @@ findViewById(R.id.btnPaymentCash).setOnClickListener(new View.OnClickListener() 
             }
         });
 
+        findViewById(R.id.btnGetReceipt4Print).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getReceipt4Print();
+            }
+        });
+
         setTitle(getString(R.string.app_name) + " " + getVersionName(getApplicationContext()));
+
+        updateView();
     }
 
     /**
-     * Запрос на проведение платежа
-     * (Откроется активити, в котором нужно будет указать сумму и назначение платежа, а также выбрать тип оплаты)
+     * Запрос на проведение платежа картой
      * <p/>
-     * Если клиент не был активирован, откроется окно активации
+     * Если приложение не было активированно, откроется окно активации приложения
      * После успешной активации нужно будет настроить код доступа и затем проводить платеж
      * <p/>
-     * Если клиент уже был ранее активирован, будет запрошен пин-код
+     * Если приложение было ранее активированно, будет запрошен пин-код
      */
     private void makePayment(double amount, String desc) {
 
         Intent intent = new Intent(Actions.PAYMENT_ACTION);
         // packageName - имя пакета для возвращения результата проведения платежа
-        intent.putExtra("packageName", getPackageName());
-        intent.putExtra("Pin", "1111");
+        intent.putExtra(Extras.packageName, getPackageName());
+        String pin = ((EditText)findViewById(R.id.pinView)).getText().toString();
+        if (pin!=null && pin.length() > 0) {
+            intent.putExtra(Extras.pin, pin);
+        }
         // amount - сумма платежа
-        intent.putExtra("amount", amount);
+        intent.putExtra(Extras.amount, amount);
         // desc - назначение платежа
-        intent.putExtra("desc", desc);
+        intent.putExtra(Extras.desc, desc);
         // desc - назначение платежа
-        intent.putExtra("paymentType", "card");
+        intent.putExtra(Extras.type, PaymentType.card);
+        // isLocalFiscalization = true  - фискализация в этом приложении
+        //                      = false - фискализация в mPos
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.checkboxView);
+        intent.putExtra(Extras.isLocalFiscalization, checkBox.isChecked());
         try {
             startActivityForResult(intent, PAYMENT_RESULT_CODE);
         } catch (ActivityNotFoundException e) {
             Toast.makeText(GeneralActivity.this, e.getMessage(), Toast.LENGTH_LONG);
         }
     }
+
+    /**
+     * Запрос на проведение платежа наличными
+     * <p/>
+     * Если приложение не было активированно, откроется окно активации приложения
+     * После успешной активации нужно будет настроить код доступа и затем проводить платеж
+     * <p/>
+     * Если приложение было ранее активированно, будет запрошен пин-код
+     */
     private void makePaymentCash(double amount, String desc) {
 
         Intent intent = new Intent(Actions.PAYMENT_ACTION);
         // packageName - имя пакета для возвращения результата проведения платежа
-        intent.putExtra("packageName", getPackageName());
-        intent.putExtra("Pin", "1111");
+        intent.putExtra(Extras.packageName, getPackageName());
+        String pin = ((EditText)findViewById(R.id.pinView)).getText().toString();
+        if (pin!=null && pin.length() > 0) {
+            intent.putExtra(Extras.pin, pin);
+        }
         // amount - сумма платежа
-        intent.putExtra("amount", amount);
+        intent.putExtra(Extras.amount, amount);
         // desc - назначение платежа
-        intent.putExtra("desc", desc);
+        intent.putExtra(Extras.desc, desc);
         // desc - назначение платежа
-        intent.putExtra("paymentType", "cash");
+        intent.putExtra(Extras.type, PaymentType.cash);
+        // isLocalFiscalization = true  - фискализация в этом приложении
+        //                      = false - фискализация в mPos
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.checkboxView);
+        intent.putExtra(Extras.isLocalFiscalization, checkBox.isChecked());
         try {
             startActivityForResult(intent, PAYMENT_RESULT_CODE);
         } catch (ActivityNotFoundException e) {
@@ -125,19 +164,45 @@ findViewById(R.id.btnPaymentCash).setOnClickListener(new View.OnClickListener() 
     /**
      * Запрос на просмотр истории платежей
      * <p/>
-     * Если клиент не был активирован, откроется окно активации
+     * Если приложение не было активированно, откроется окно активации приложения
      * После успешной активации нужно будет настроить код доступа и затем проводить платеж
      * <p/>
-     * Если клиент уже был ранее активирован, будет запрошен пин-код
+     * Если приложение было ранее активированно, будет запрошен пин-код
      */
     private void showHistory() {
 
         Intent intent = new Intent(Actions.HISTORY_ACTION);
         // packageName - имя пакета для возвращения результата проведения платежа
-        intent.putExtra("packageName", getPackageName());
-        intent.putExtra("Pin", "1111");
-        try{
-        startActivity(intent);
+        intent.putExtra(Extras.packageName, getPackageName());
+        String pin = ((EditText)findViewById(R.id.pinView)).getText().toString();
+        if (pin!=null && pin.length() > 0) {
+            intent.putExtra(Extras.pin, pin);
+        }
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(GeneralActivity.this, e.getMessage(), Toast.LENGTH_LONG);
+        }
+    }
+
+    /**
+     * Запрос на получение фискальных данных для платежа
+     */
+    private void getReceipt4Print() {
+        Intent intent = new Intent(Actions.GET_RECEIPT_ACTION);
+        // packageName - имя пакета для возвращения результата проведения платежа
+        intent.putExtra(Extras.packageName, getPackageName());
+        // код-доступа
+        String pin = ((EditText)findViewById(R.id.pinView)).getText().toString();
+        if (pin!=null && pin.length() > 0) {
+            intent.putExtra(Extras.pin, pin);
+        }
+        // тип платежа
+        intent.putExtra(Extras.type, getIntent().getIntExtra(Extras.type, PaymentType.card)); // оплата картой
+        // Id платежа
+        intent.putExtra(Extras.paymentId, getIntent().getStringExtra(Extras.paymentId));
+        try {
+            startActivityForResult(intent, GET_RECEIPT_RESULT_CODE);
         } catch (ActivityNotFoundException e) {
             Toast.makeText(GeneralActivity.this, e.getMessage(), Toast.LENGTH_LONG);
         }
@@ -151,44 +216,62 @@ findViewById(R.id.btnPaymentCash).setOnClickListener(new View.OnClickListener() 
         }
     }
 
-    /**
-     * Ответ
-     * Result success = new Result(0, "success");
-     * Result success_put_to_queue = new Result(1, "success_put_to_queue");
-     * Result server_error = new Result(20, "server_error");
-     * Result server_parser_error = new Result(21, "server_parser_error");
-     * Result connection_timeout = new Result(3, "connection_timeout");
-     * Result network_is_not_available = new Result(4, "network_is_not_available");
-     * Result network_is_available = new Result(5, "network_is_available");
-     * Result system_service_error = new Result(6, "system_service_error");
-     * Result unknown_error = new Result(100, "unknown_error");
-     * Result cancel_activation = new Result(101, "cancel_activation");
-     * Result cancel_operation = new Result(200, "Отмена операции");
-     * Result waiting_timeout = new Result(400, "waiting_timeout");
-     * Result reader_not_init = new Result(1001, "Ридер не инициализирован");
-     * Result reader_not_identify = new Result(1002, "Неизвестный ридер");
-     * Result transaction_aborted_by_card = new Result(1003, "Операция отклонена картой");
-     * Result card_blocked = new Result(1004, "Карта заблокирована");
-     * Result dont_use_card = new Result(1005, "Не принимайте эту карту к оплате!");
-     * Result insert_card = new Result(13, "Вставьте карту чипом в ридер");
-     * Result try_payment_again = new Result(14, "Попробуйте провести платёж заново");
-     * Result payment_not_confirmed = new Result(15, "Платеж не подтвержден");
-     * Result payment_canceled = new Result(16, "Платеж отменен");
-     */
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         Log.d("2can", "got result " + resultCode);
-        String msg = null;
-        if (data == null) {
-            msg = "Ошибка. ErrorCode: " + resultCode;
-        } else {
-            msg = resultCode == 0 ? "Платеж завершен успешно" : ("Ошибка платежа. ErrorCode: " + resultCode);
-            msg += "\nСпособ оплаты: " + data.getStringExtra("paymentType");
+        switch (requestCode) {
+            case PAYMENT_RESULT_CODE:
+                String msg = null;
+                if (data == null) {
+                    msg = "Ошибка. ErrorCode: " + resultCode;
+                } else {
+                    if (resultCode == 0) {
+                        msg = "Платеж завершен успешно";
+                        Payment payment = data.getParcelableExtra(Extras.payment);
+                        if (payment != null) {
+                            getIntent().putExtra(Extras.paymentId, payment.paymentId);
+                            getIntent().putExtra(Extras.type, payment.type);
+                            msg += "\n" + payment.toString();
+
+                            updateView();
+                        } else {
+                            msg += "\n" + "payment is null";
+                        }
+                    } else {
+                        msg = "Ошибка. ErrorCode: " + resultCode;
+                    }
+                }
+                Alert.show("Внимание", msg, "Ок", null, GeneralActivity.this);
+                break;
+            case GET_RECEIPT_RESULT_CODE:
+                if (data == null) {
+                    msg = "Ошибка. ErrorCode: " + resultCode;
+                } else {
+                    if (resultCode == 0) {
+                        msg = "Фискальные данные получены";
+                        Payment payment = data.getParcelableExtra(Extras.payment);
+                        if (payment != null) {
+                            Receipt4Print receipt4Print = payment.receipt4Print;
+                            msg += "\n" + (receipt4Print != null ? receipt4Print.toString() : "receipt4print is null");
+                        } else {
+                            msg += "\n" + "payment is null";
+                        }
+                    } else {
+                        msg = "Ошибка. ErrorCode: " + resultCode;
+                    }
+                }
+                Alert.show("Внимание", msg, "Ок", null, GeneralActivity.this);
+                break;
+            default:
+                Alert.show("Внимание", "requestCode (" + requestCode + ")", "Ок", null, GeneralActivity.this);
         }
-        Alert.show("Внимание", msg, "Ок", null, GeneralActivity.this);
-        // после получения ответа - удаляем ресивер
+    }
+
+    private void updateView() {
+        findViewById(R.id.btnGetReceipt4Print).setEnabled(
+                getIntent().hasExtra(Extras.paymentId)
+        );
     }
 }

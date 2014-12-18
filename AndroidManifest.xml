@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="ru.toucan.example"
           android:versionCode="1"
-          android:versionName="2.0.0.c290de7">
+          android:versionName="2.0.fa08f4b">
     <uses-sdk android:minSdkVersion="7"/>
 
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
