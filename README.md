@@ -97,6 +97,7 @@ OFDPrintText | String | Фискальная часть чека
 errorMessage | String | Ошибка формирования чека
 
 Пример текста в OFDPrintText:
+
 "------------------------------
 Кассовый чек
 ОФД - ФГУП ГНИВЦ ФНС России
@@ -182,8 +183,8 @@ startActivityForResult(intent, GET_RECEIPT_RESULT_CODE);
 Имя параметра|Тип|Описание|Обязательный или нет
 -------------|---|--------|-------------------
 packageName | String | имя пакета вашего приложения | обязательный
-paymentId | String | ID платежа
-type | int | тип платежа (возможные значения: 1 - cardPayment, 2 - cashPayment, 3 - refundCard(voidCard), 4 - refundCash(voidCash)
+paymentId | String | ID платежа | обязательный
+type | int | тип платежа (возможные значения: 1 - cardPayment, 2 - cashPayment, 3 - refundCard(voidCard), 4 - refundCash(voidCash) | обязательный
 Pin | String | код доступа к Мобильному терминалу, при отсутствии в параметрах запроса будет запрошен у пользователя | не обязательный
 
 #### Получение ответа
