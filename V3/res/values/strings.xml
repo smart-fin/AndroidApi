@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">2Can API 3</string>
+    <string name="enter_amount">Введите сумму платежа</string>
+    <string name="enter_correct_amount">Сумма платежа введена неверно</string>
+    <string name="enter_desc">Введите назначение платежа</string>
+    <string name="title_activity_payment">PaymentActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="formated_samble"><![CDATA[<br>нормальный<b>болд</b><i>италик</i><br><br>разрыв до и после<br><br><font1>первый</font1><font2>второй</font2><font3>третий</font3><font4>четвертый</font4><font5>пятый</font5>нормальный<br>]]></string>
+
+</resources>

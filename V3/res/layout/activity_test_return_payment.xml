@@ -1,0 +1,104 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="ru.toucan.example.method.ReturnPayment">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/secureCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Код доступа к приложению"
+                android:inputType="numberDecimal"
+                android:text="1111" />
+
+
+            <EditText
+                android:id="@+id/payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Id платежа"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/sum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Сумма 000.00"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Причина возврата" />
+
+            <EditText
+                android:id="@+id/receiptNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Номер чека" />
+
+            <EditText
+                android:id="@+id/rrnCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Уникальный 16-ти значный номер транзакции (RRN)"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/secureCardNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Безопасный номер карты" />
+
+            <EditText
+                android:id="@+id/authorizationCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Код авторизации исходной транзакции" />
+
+
+            <CheckBox
+                android:id="@+id/getPayInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Возвращать полную информацияю о платеже" />
+
+            <CheckBox
+                android:id="@+id/fiscalizationFlag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Фискализировать" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="pay"
+                android:text="Вернуть платеж" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
