@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">2canPayTest</string>
-    <string name="enter_amount">Введите сумму платежа</string>
-    <string name="enter_correct_amount">Сумма платежа введена неверно</string>
-    <string name="enter_desc">Введите назначение платежа</string>
-    <string name="enter_pin">Код-доступа</string>
-    <string name="local_fiscalization">Локальная фискализация</string>
-</resources>
