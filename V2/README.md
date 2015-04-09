@@ -36,7 +36,7 @@ intent.putExtra("packageName", packageName);
 intent.putExtra("Pin", Pin);
 intent.putExtra("amount", amount);
 intent.putExtra("desc", desc);
-intent.putExtra("paymentType", "card");
+intent.putExtra("type", 1);
 intent.putExtra("isLocalFiscalization", false);
 startActivityForResult(intent, PAYMENT_RESULT_CODE);
 ```
