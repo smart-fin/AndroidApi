@@ -44,7 +44,59 @@ void onActivityResult(int requestCode, int resultCode, Intent data)
 ```
 resultCode - Код ответа
 
-Для некоторых действий возвращается дополнительный объект result instanceof Parcelable. В соответствующих действиях result будет описан более детально.
+Для некоторых действий возвращается дополнительный объект result instanceof Parcelable. 
+```java
+if (intent.hasExtra("result")) {
+     ParcelableObject result = intent.getParcelableExtra(Extras.result);
+
+     if (result instanceof ru.toucan.api.APIPaymentResult) {
+          // we got result, ru.toucan.api.APIPaymentResult instanceof ParcelableObject
+     }
+}
+```
+
+```java
+public abstract class ParcelableObject implements Parcelable {
+    public ParcelableObject(Parcel source) {
+        try {
+            String sourceJson = source.readString();
+        
+            Object readValue = getJsonObject(); // get json object
+        
+            //init all filds for this object
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+     @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        try {
+            String destJson = getJsonObject();
+            
+            dest.writeString(destJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    ...
+}
+```
+```java
+public class APIPaymentResult extends ParcelableObject {
+
+    // Идентификатор платежа
+    public Integer Payment;
+
+    // Код авторизации
+    public String AuthorizationCode;
+
+    // Полная информация о платеже (необязательное поле)
+    public PaymentDetailApi3 PaymentInfo;
+}
+```
+См. подробное описание [APIPaymentResult] (http://github.com/smart-fin/AndroidApi/tree/master/V3/)
 
 ### 1. ru.toucan.OPEN
 Проверяет наличие подключенного ридера к мобильному терминалу. 
@@ -152,3 +204,5 @@ SecureCode | String | код доступа к Мобильному термин
 -------------|---|--------|-------------------
 PackageName | String | имя пакета вашего приложения | обязательный
 SecureCode | String | код доступа к Мобильному терминалу, при отсутствии в параметрах запроса будет запрошен у пользователя | не обязательный
+DateTimeFrom | String | Дата и время начала периода, формат yyyy-MM-ddHH:mm:ss| обязательный
+DateTimeTill | String | Дата и время окончания периода, формат yyyy-MM-ddHH:mm:ss| обязательный
