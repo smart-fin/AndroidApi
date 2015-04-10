@@ -96,7 +96,7 @@ public class APIPaymentResult extends ParcelableObject {
     public PaymentDetailApi3 PaymentInfo;
 }
 ```
-См. подробное описание [APIPaymentResult] (http://github.com/smart-fin/AndroidApi/tree/master/V3/)
+См. подробное описание объектов [ru.toucan.api] (http://github.com/smart-fin/AndroidApi/tree/master/V3/src/ru/toucan/api/)
 
 ### 1. ru.toucan.OPEN
 Проверяет наличие подключенного ридера к мобильному терминалу. 
