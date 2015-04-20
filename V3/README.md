@@ -34,7 +34,7 @@ intent.putExtra("Param2", Param2);
 intent.putExtra("ParamN", ParamN);
 startActivityForResult(intent, ACTION_RESULT_CODE);
 ```
-OPEN_RESULT_CODE - requestCode, см. описание методов [startActivityForResult]( https://developer.android.com/reference/android/app/Activity.html#startActivityForResult(android.content.Intent,%20int) ) и [onActivityResult]( https://developer.android.com/reference/android/app/Activity.html#onActivityResult(int,%20int,%20android.content.Intent) )
+ACTION_RESULT_CODE - requestCode, см. описание методов [startActivityForResult]( https://developer.android.com/reference/android/app/Activity.html#startActivityForResult(android.content.Intent,%20int) ) и [onActivityResult]( https://developer.android.com/reference/android/app/Activity.html#onActivityResult(int,%20int,%20android.content.Intent) )
 
 ##### Получение ответа
 
