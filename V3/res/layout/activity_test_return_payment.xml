@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ru.toucan.example.method.ReturnPayment">
+    tools:context="ru.toucan.api.ems.demo.method.ReturnPayment">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -18,22 +18,14 @@
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/secureCode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Код доступа к приложению"
-                android:inputType="numberDecimal"
-                android:text="1111" />
-
+            <include layout="@layout/params_box"/>
 
             <EditText
                 android:id="@+id/payment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Id платежа"
+                android:hint="@string/payment_id"
                 android:inputType="numberDecimal" />
 
             <EditText
@@ -41,40 +33,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Сумма 000.00"
+                android:hint="@string/sum"
                 android:inputType="numberDecimal" />
 
             <EditText
                 android:id="@+id/reason"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Причина возврата" />
+                android:hint="@string/reason" />
 
             <EditText
                 android:id="@+id/receiptNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Номер чека" />
+                android:hint="@string/receiptNumber" />
 
             <EditText
                 android:id="@+id/rrnCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Уникальный 16-ти значный номер транзакции (RRN)"
+                android:hint="@string/rrn"
                 android:inputType="numberDecimal" />
 
             <EditText
                 android:id="@+id/secureCardNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Безопасный номер карты" />
+                android:hint="@string/secureCardNumber" />
 
             <EditText
                 android:id="@+id/authorizationCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Код авторизации исходной транзакции" />
+                android:hint="@string/authorization_code" />
 
 
             <CheckBox
@@ -82,21 +74,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Возвращать полную информацияю о платеже" />
+                android:text="@string/return_payment_info" />
 
             <CheckBox
                 android:id="@+id/fiscalizationFlag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Фискализировать" />
+                android:text="@string/fiscalization" />
 
             <Button
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="pay"
-                android:text="Вернуть платеж" />
+                android:text="@string/return_payment_short" />
 
 
         </LinearLayout>

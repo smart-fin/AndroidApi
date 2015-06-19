@@ -29,6 +29,10 @@ public class APIReturnPaymentResult extends ParcelableObject {
     @JsonProperty("Id")
     public Integer Id;
 
+    // Идентификатор возврата
+    @JsonProperty("CardNumber")
+    public String CardNumber;
+
     // Полная информация о платеже (необязательное поле)
     @JsonProperty("PaymentInfo")
     public ReturnDetailApi3 PaymentInfo;

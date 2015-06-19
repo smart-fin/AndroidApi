@@ -23,6 +23,10 @@ import ru.toucan.merchant.business.domain.ParcelableObject;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class APICancelPaymentResult extends ParcelableObject {
 
+    // Идентификатор отмененого платежа
+    @JsonProperty("Payment")
+    public Integer Payment;
+
     // Текст квитанции
     @JsonProperty("Slip")
     public String Slip;

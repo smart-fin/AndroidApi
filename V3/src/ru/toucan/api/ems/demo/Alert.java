@@ -1,4 +1,4 @@
-package ru.toucan.example;
+package ru.toucan.api.ems.demo;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -6,8 +6,6 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import ru.toucan.example2.R;
 
 /**
  * Created with IntelliJ IDEA.

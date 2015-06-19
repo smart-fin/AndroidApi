@@ -12,6 +12,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import java.io.IOException;
 
 import ru.toucan.merchant.business.domain.ParcelableObject;
+import ru.toucan.merchant.business.domain.print.Receipt4Print;
 import ru.toucan.merchant.business.domain.statistic.PaymentDetailApi3;
 
 
@@ -32,6 +33,10 @@ public class APIPaymentResult extends ParcelableObject {
     // Код авторизации
     @JsonProperty("AuthorizationCode")
     public String AuthorizationCode;
+
+    // Безопасный номер карты(6 первых, 4 последних цифры, остальное * )
+    @JsonProperty("CardNumber")
+    public String CardNumber;
 
     // Полная информация о платеже (необязательное поле)
     @JsonProperty("PaymentInfo")

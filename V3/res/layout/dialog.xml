@@ -28,5 +28,5 @@
         android:id="@+id/btnOk"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="ОК" />
+        android:text="@string/ok" />
 </LinearLayout>

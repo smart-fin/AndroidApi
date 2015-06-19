@@ -20,15 +20,12 @@ public class Extras {
     public static String reportType = "reportType";
     public static String paymentId = "paymentId";
     public static String time = "time";
-    public static String sum = "sum";
-    public static String firstSum = "firstSum";
     public static String desc = "desc";
     public static String descfull = "descfull";
     public static String track = "track";
     public static String lastDigits = "lastDigits";
     public static String desc_id = "desc_id";
 
-    public static String demo = "demo";
     public static String authCode = "AuthCode";
     public static String cardType = "cardType";
     public static String notMatch = "notMatch";
@@ -175,6 +172,7 @@ public class Extras {
     public static final String shiftNumber = "shiftNumber";
     
     // API 3.0 params
+    public static final String paramResponse = "Response";
     public static final String paramPackageName = "PackageName";
     public static final String paramPayment = "Payment";
     public static final String paramSecureCode = "SecureCode";
@@ -186,6 +184,8 @@ public class Extras {
     public static final String paramFiscalizationFlag = "FiscalizationFlag";
     public static final String paramReason = "Reason";
     public static final String paramReceiptNumber = "ReceiptNumber";
+    public static final String paramPhone = "Phone";
+    public static final String paramEmail = "Email";
     public static final String paramSecureCardNumber = "SecureCardNumber";
     public static final String paramAuthorizationCode = "AuthorizationCode";
     public static final String paramGetPayInfo = "GetPayInfo";
@@ -202,9 +202,14 @@ public class Extras {
     public static final String paramErrorText = "ErrorText";
     public static final String paramSlip = "Slip";
     public static final String CardNumber = "CardNumber";
+    public static final String tableParameters = "TableParameters";
 
     public static final String def = "def";
     public static final String value = "value";
     public static final String fiscalization = "fiscalization";
     public static String updateAvailable = "updateAvailable";
+
+    // переход на следущий шаг, если все параметры были указаны
+    public static String turningNext = "turningNext";
+
 }

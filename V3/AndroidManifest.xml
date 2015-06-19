@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.toucan.example2"
-    android:versionCode="1"
-    android:versionName="2.0.51f0c06d" >
+    package="ru.toucan.api.ems.demo">
 
-    <uses-sdk android:minSdkVersion="9" />
-
-    <application
+    <application android:name=".App"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name">
 
 
-        <activity android:name="ru.toucan.example.activity.NewAPI"
-            android:screenOrientation="portrait"
-            >
+        <activity
+            android:name=".activity.API"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".activity.Setup"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:label="SETUP"/>
 
         <activity
-            android:name="ru.toucan.example.method.Payment"
+            android:name="ru.toucan.api.ems.demo.method.Payment"
             android:screenOrientation="portrait"
-            android:label="PAYMENT" >
-        </activity>
+            android:label="PAYMENT"/>
         <activity
-            android:name="ru.toucan.example.method.CashPayment"
+            android:name="ru.toucan.api.ems.demo.method.CashPayment"
             android:screenOrientation="portrait"
-            android:label="CASH_PAYMENT" >
-        </activity>
+            android:label="CASH_PAYMENT"/>
         <activity
-            android:name="ru.toucan.example.method.ViewPayment"
+            android:name="ru.toucan.api.ems.demo.method.ViewPayment"
             android:screenOrientation="portrait"
-            android:label="VIEW_PAYMENT" >
-        </activity>
+            android:label="VIEW_PAYMENT"/>
         <activity
-            android:name="ru.toucan.example.method.CancelPayment"
+            android:name="ru.toucan.api.ems.demo.method.CancelPayment"
             android:screenOrientation="portrait"
-            android:label="CANCEL_PAYMENT" >
-        </activity>
+            android:label="CANCEL_PAYMENT"/>
         <activity
-            android:name="ru.toucan.example.method.ReturnPayment"
+            android:name="ru.toucan.api.ems.demo.method.ReturnPayment"
             android:screenOrientation="portrait"
-            android:label="RETURN_PAYMENT" >
-        </activity>
+            android:label="RETURN_PAYMENT"/>
         <activity
-            android:name="ru.toucan.example.method.Settlement"
+            android:name="ru.toucan.api.ems.demo.method.Settlement"
             android:screenOrientation="portrait"
-            android:label="SETTLEMENT" >
-        </activity>
+            android:label="SETTLEMENT"/>
         <activity
-            android:name="ru.toucan.example.method.GetParameters"
+            android:name="ru.toucan.api.ems.demo.method.GetParameters"
             android:screenOrientation="portrait"
-            android:label="GET_PARAMETERS" >
-        </activity>
+            android:label="GET_PARAMETERS"/>
         <activity
-            android:name="ru.toucan.example.method.Open"
+            android:name="ru.toucan.api.ems.demo.method.GetVersion"
             android:screenOrientation="portrait"
-            android:label="OPEN" >
-        </activity>
+            android:label="GET_VERSION"/>
         <activity
-            android:name="ru.toucan.example.method.Close"
+            android:name="ru.toucan.api.ems.demo.method.GetLastError"
             android:screenOrientation="portrait"
-            android:label="CLOSE" >
-        </activity>
+            android:label="GET_LAST_ERROR"/>
+        <activity
+            android:name="ru.toucan.api.ems.demo.method.Open"
+            android:screenOrientation="portrait"
+            android:label="OPEN"/>
+        <activity
+            android:name="ru.toucan.api.ems.demo.method.Close"
+            android:screenOrientation="portrait"
+            android:label="CLOSE"/>
 
     </application>
 

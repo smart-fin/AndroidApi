@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ru.toucan.example.method.GetParameters">
+    tools:context="ru.toucan.api.ems.demo.method.GetParameters">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="pay"
-                android:text="Получить параметры" />
+                android:text="@string/get_parameters_short" />
 
 
         </LinearLayout>

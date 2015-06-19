@@ -17,7 +17,7 @@ public class APIResult {
 
 
     // Код ошибки
-    public int code;
+    public final int code;
     // Краткое описание
     public String text;
     // Серверный код
@@ -63,6 +63,8 @@ public class APIResult {
     public static final APIResult enter_amount = new APIResult(7, "Необходимо указать сумму");
     public static final APIResult enter_desc = new APIResult(8, "Необходимо указать назначение платежа");
     public static final APIResult enter_package_name = new APIResult(9, "Необходимо указать PackageName");
+    public static final APIResult enter_email = new APIResult(10, "E-mail для отправки терминального чека указан неверно");
+    public static final APIResult enter_phone_number = new APIResult(12, "Номер телефона для отправки терминального чека указан неверно");
 
     public static final APIResult success_config_reader = new APIResult(11, "success_config_reader");
     public static final APIResult plug_card_by_chip = new APIResult(13, "Вставьте карту чипом в ридер", 301041);
@@ -100,14 +102,42 @@ public class APIResult {
     public static final APIResult card_blocked = new APIResult(1004, "Карта заблокирована");
     public static final APIResult dont_use_card = new APIResult(1005, "Не принимайте эту карту к оплате!"); // wtf?
     public static final APIResult payment_cannot_processing = new APIResult(1006, "Платеж не может быть обработан", 300200);
+    public static final APIResult payment_cannot_processing2 = new APIResult(300201, "Операция отклонена. Воспользуйтесь другой картой или свяжитесь с банком, выпустившим карту.", 300201);
     public static final APIResult wrong_payment_status = new APIResult(1007, "Неверный статус платежа", 300102);
     public static final APIResult error_config_reader = new APIResult(1010, "Ошибка регистрации ридера. Обратитесь в службу поддержки.");
     public static final APIResult error_reader_testing = new APIResult(1011, "Ошибка проверки ридера.");
     public static final APIResult error_not_enough_parameters = new APIResult(2000, "Не переданы необходимые параметры");
 
     public static final APIResult cannot_make_refund = new APIResult(5910, "Невозможно выполнить возврат", 300208);
+    public static final APIResult operation_refund = new APIResult(5057, "Операция отклонена. Воспользуйтесь другой картой или свяжитесь с банком, выпустившим карту.", 5057);
+    public static final APIResult operation_refund_2 = new APIResult(5065, "Операция отклонена. Воспользуйтесь другой картой или свяжитесь с банком, выпустившим карту.", 5065);
+    public static final APIResult operation_refund_3 = new APIResult(5097, "Операция отклонена. Воспользуйтесь другой картой или свяжитесь с банком, выпустившим карту.", 5097);
+    public static final APIResult invalid_pin = new APIResult(5055, "Операция отклонена. Воспользуйтесь другой картой или свяжитесь с банком, выпустившим карту.", 5055);
+    public static final APIResult settings_in_bank_not_correct = new APIResult(5012, "Операция отклонена. \n" +
+            "Воспользуйтесь другой картой или свяжитесь со службой поддержки.", 5012);
+    public static final APIResult operation_refund_4 = new APIResult(5096, "Операция отклонена. \n" +
+            "Воспользуйтесь другой картой или свяжитесь со службой поддержки.", 5096);
+    public static final APIResult operation_refund_region_limit = new APIResult(5036, "Операция отклонена. \n" +
+            "Воспользуйтесь другой картой или свяжитесь со службой поддержки.", 5036);
+    public static final APIResult operation_refund_region_limit_2 = new APIResult(5062, "Операция отклонена. \n" +
+            "Воспользуйтесь другой картой или свяжитесь со службой поддержки.", 5062);
+    public static final APIResult operation_refund_5 = new APIResult(5001, "Операция отклонена. \n" +
+            "Воспользуйтесь другой картой или свяжитесь со службой поддержки.", 5001);
+    public static final APIResult operation_refund_6 = new APIResult(5002, "Операция отклонена. \n" +
+            "Воспользуйтесь другой картой или свяжитесь со службой поддержки.", 5002);
+    public static final APIResult not_enough_money = new APIResult(5051, "Недостаточно средств. Воспользуйтесь другой картой или укажите меньшую сумму.", 5051);
+    public static final APIResult card_of_foreign_banks_not_accepted = new APIResult(2111, "Карты иностранных банков не принимаются. Воспользуйтесь другой картой." +
+            "Для приема карт иностранных Банков обратитесь в службу поддержки.", 2111);
+    public static final APIResult country_of_banks_undefined = new APIResult(2110, "Страна банка, выпустившего карту не определена. Воспользуйтесь другой картой.", 2110);
+    public static final APIResult exceeded_limit_frequency_of_successful_payments = new APIResult(2014, "Превышен лимит частоты успешно проведенных платежей по одной карте. " +
+            "Для увеличения лимита свяжитесь со службой поддержки.", 2014);
+    public static final APIResult reader_blocked = new APIResult(5101, "Ридер заблокирован. \n" +
+            "Обратитесь в службу поддержки.", 5101);
+    public static final APIResult exceeded_limit_of_sum_payment = new APIResult(2001, "Превышен лимит суммы платежа.  \n" +
+            "Укажите меньшую сумму. Для увеличения лимита свяжитесь со службой поддержки.", 2001);
 
     public static final APIResult merchant_payment_locked = new APIResult(400503, "Прием платежей заблокирован", 400503);
+    public static final APIResult sign_timeout_payment_canceled = new APIResult(0, "Время ожидания подписи истекло. Платеж отменен.", 0);
 
     @Override
     public String toString() {
@@ -131,11 +161,11 @@ public class APIResult {
             out = new APIResult(byServerCode.get(serverCode));
         } else {
             out = new APIResult(server_error);
+            out.text = serverDescription;
         }
 
         // сохраняем дескрипшен и код, пришедшие с сервера
         out.serverCode = serverCode;
-        out.text = serverDescription;
 
         return out;
     }

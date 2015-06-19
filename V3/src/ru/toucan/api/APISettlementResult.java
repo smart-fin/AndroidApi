@@ -11,6 +11,8 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import java.io.IOException;
 
 import ru.toucan.merchant.business.domain.ParcelableObject;
+import ru.toucan.merchant.business.domain.print.Receipt4Print;
+import ru.toucan.merchant.business.domain.statistic.PaymentDetailApi3;
 
 
 /**

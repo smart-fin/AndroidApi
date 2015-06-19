@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ru.toucan.example.method.Payment">
+    tools:context="ru.toucan.api.ems.demo.method.Payment">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -18,12 +18,20 @@
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
+            <include layout="@layout/params_box"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/additional_params"/>
+
             <EditText
                 android:id="@+id/sum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Сумма 000.00"
+                android:hint="@string/sum"
                 android:inputType="numberDecimal" />
 
             <EditText
@@ -31,57 +39,59 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="НДС 00.00"
+                android:hint="@string/vat"
                 android:inputType="numberDecimal" />
 
             <EditText
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Назначение платежа" />
+                android:hint="@string/description" />
 
             <EditText
                 android:id="@+id/fullDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/formated_samble"
-                android:hint="Подробное назначение платежа" />
+                android:hint="@string/full_description" />
 
             <EditText
                 android:id="@+id/receiptNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Номер чека" />
+                android:hint="@string/receiptNumber" />
 
             <EditText
-                android:id="@+id/secureCode"
+                android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Код доступа к приложению"
-                android:inputType="numberDecimal"
-                android:text="1111" />
+                android:hint="@string/phone_number" />
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email" />
 
             <CheckBox
                 android:id="@+id/getPayInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Возвращать полную информацияю о платеже" />
+                android:text="@string/return_payment_info" />
 
             <CheckBox
                 android:id="@+id/fiscalizationFlag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Фискализировать" />
+                android:text="@string/fiscalization" />
 
             <Button
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="pay"
-                android:text="Оплатить картой" />
+                android:text="@string/card_payment_short" />
 
 
         </LinearLayout>

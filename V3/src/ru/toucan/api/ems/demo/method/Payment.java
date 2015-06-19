@@ -1,4 +1,4 @@
-package ru.toucan.example.method;
+package ru.toucan.api.ems.demo.method;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,65 +6,63 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import ru.toucan.api.APIActions;
 import ru.toucan.api.APIExtras;
-import ru.toucan.example.Utils;
-import ru.toucan.example.activity.NewAPI;
-import ru.toucan.example2.R;
+import ru.toucan.api.ems.demo.R;
+import ru.toucan.api.ems.demo.utils.RequestCode;
+import ru.toucan.api.ems.demo.utils.Settings;
+import ru.toucan.api.ems.demo.utils.Utils;
 import ru.toucan.merchant.common.Extras;
 
 public class Payment extends Activity {
-
-    private static final int REQUEST_CODE = 1;
 
     EditText sum;
     EditText vat;
     EditText description;
     EditText fullDescription;
     EditText receiptNumber;
-    EditText secureCode;
+    EditText email;
+    EditText phone;
     CheckBox getPayInfo;
     CheckBox fiscalizationFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Settings.getParameters()== null) {
+            Toast.makeText(getApplicationContext(), getString(R.string.need_setup_settings), Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_test_payment);
+
+        LinearLayout layout = (LinearLayout) findViewById(R.id.groupBox);
+        TextView titleView = (TextView) findViewById(R.id.captionView);
+        Utils.createFields(Payment.this, layout, titleView, Settings.getParameters(), false);
 
         sum = (EditText) findViewById(R.id.sum);
         vat = (EditText) findViewById(R.id.vat);
         description = (EditText) findViewById(R.id.description);
         fullDescription = (EditText) findViewById(R.id.fullDescription);
         receiptNumber = (EditText) findViewById(R.id.receiptNumber);
-        secureCode = (EditText) findViewById(R.id.secureCode);
+        phone = (EditText) findViewById(R.id.phone);
+        email = (EditText) findViewById(R.id.email);
         getPayInfo = (CheckBox) findViewById(R.id.getPayInfo);
         fiscalizationFlag = (CheckBox) findViewById(R.id.fiscalizationFlag);
     }
 
     public void pay(View v) {
-//        // обязательные поля
-//        if (sum.getText().length() < 1) {
-//            Toast.makeText(this, "Сумма — обязательное поле", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-
-//        if (description.getText().length() < 1 && receiptNumber.getText().length() < 1) {
-//            Toast.makeText(this, "Должно быть указано назначение или номер чека", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-
-//        if (secureCode.getText().length() != 4) {
-//            Toast.makeText(this, "Код доступа должен содержать 4 цифры", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
 
         Intent intent = new Intent();
         intent.setAction(APIActions.PAYMENT);
 
-        // Имя пакета для возвращения результата проведения платежа
-        intent.putExtra(Extras.paramPackageName, getPackageName());
+        // Параметры по умолчанию из GET_PARAMETERS
+        intent = Utils.getDefaultParameters(intent);
 
         // Сумма платежа в МДЕ (в копейках)
         intent.putExtra(Extras.paramAmount, Utils.parseSum(sum.getText().toString()));
@@ -84,9 +82,14 @@ public class Payment extends Activity {
         if (receiptNumber.getText().length() > 0) {
             intent.putExtra(Extras.paramReceiptNumber, receiptNumber.getText().toString());
         }
-
-        // Код доступа к приложению
-        intent.putExtra(Extras.paramSecureCode, secureCode.getText().toString());
+        // E-mail для отправки терминального чека
+        if (email.getText().length() > 0) {
+            intent.putExtra(Extras.paramEmail, email.getText().toString());
+        }
+        // Номер телефона для отправки терминального чека
+        if (phone.getText().length() > 0) {
+            intent.putExtra(Extras.paramPhone, phone.getText().toString());
+        }
 
         // Переключатель показывающий надо ли возвращать полную информацию о платеже
         if (getPayInfo.isChecked()) {
@@ -109,17 +112,18 @@ public class Payment extends Activity {
 
         Utils.dumpBundle(intent.getExtras());
 
-        startActivityForResult(intent, REQUEST_CODE);
+        startActivityForResult(intent, RequestCode.CARD_PAYMENT.ordinal());
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Toast.makeText(this, "Результат: " + resultCode, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.results) + " " + resultCode + " [" + (resultCode==RESULT_OK?"RESULT_OK":
+                (resultCode==RESULT_CANCELED?"RESULT_CANCELED":"???")) + "]", Toast.LENGTH_SHORT).show();
 
         data.putExtra(Extras.requestCode, requestCode);
         data.putExtra(Extras.resultCode, resultCode);
 
-        data.setClass(this, NewAPI.class);
-        startActivity(data);
+        setResult(resultCode, data);
+        finish();
     }
 }

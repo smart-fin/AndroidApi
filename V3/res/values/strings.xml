@@ -1,13 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">2Can API 3</string>
+    <string name="app_name">2Can.API.EMS.Demo</string>
+
     <string name="enter_amount">Введите сумму платежа</string>
     <string name="enter_correct_amount">Сумма платежа введена неверно</string>
     <string name="enter_desc">Введите назначение платежа</string>
     <string name="title_activity_payment">PaymentActivity</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="formated_samble"><![CDATA[<br>нормальный<b>болд</b><i>италик</i><br><br>разрыв до и после<br><br><font1>первый</font1><font2>второй</font2><font3>третий</font3><font4>четвертый</font4><font5>пятый</font5>нормальный<br>]]></string>
+    <string name="formated_samble"><![CDATA[<br>нормальный<b>болд</b><i>италик</i><br><br>разрыв до и после<br><br>
+                                    <font1>первый</font1><font2>второй</font2><font3>третий</font3>
+                                    <font4>четвертый</font4><font5>пятый</font5>нормальный<br>]]></string>
+    <string name="card_payment">Оплата платежной картой (PAYMENT)</string>
+    <string name="cash_payment">Оплата наличными (CASH_PAYMENT)</string>
+    <string name="view_payment">Информация об операции (VIEW_PAYMENT)</string>
+    <string name="cancel_payment">Отмена платежа (CANCEL_PAYMENT)</string>
+    <string name="return_payment">Возврат платежа (RETURN_PAYMENT)</string>
+    <string name="settlement">Список успешных платежей (SETTLEMENT)</string>
+    <string name="get_version">Получить версию мобильного терминала 2can (GET_VERSION)</string>
+    <string name="get_last_error">Получить описание произошедшей ошибки (GET_LAST_ERROR)</string>
+    <string name="get_parameters">Получить спискок настраиваемых параметров (GET_PARAMETERS)</string>
+    <string name="open">Проверка оборудования (OPEN)</string>
+    <string name="close">Закрытие приложения (CLOSE)</string>
+    <string name="ok">ОК</string>
+    <string name="secure_code">Код доступа к приложению</string>
+    <string name="payment_id">Id платежа</string>
+    <string name="rrn">Уникальный 16-ти значный номер транзакции (RRN)</string>
+    <string name="sum">Сумма 000.00</string>
+    <string name="fiscalization">Фискализировать</string>
+    <string name="cancel_payment_short">Отменить платеж</string>
+    <string name="vat">НДC 00.00</string>
+    <string name="description">Назначение платежа</string>
+    <string name="full_description">Подробное назначение платежа</string>
+    <string name="receiptNumber">Номер чека</string>
+    <string name="cash_payment_short">Оплатить наличными</string>
+    <string name="close_short">Закрыть</string>
+    <string name="get_parameters_short">Получить параметры</string>
+    <string name="check">Проверить</string>
+    <string name="return_payment_info">Возвращать полную информацияю о платеже</string>
+    <string name="card_payment_short">Оплатить картой</string>
+    <string name="reason">Причина возврата</string>
+    <string name="secureCardNumber">Безопасный номер карты</string>
+    <string name="authorization_code">Код авторизации исходной транзакции</string>
+    <string name="return_payment_short">Вернуть платеж</string>
+    <string name="date_time_format">yyyy-MM-ddHH:mm:ss</string>
+    <string name="get">Получить</string>
+    <string name="view_payment_short">Получить данные платежа</string>
+    <string name="secure_code_must_be_4_digits">Код доступа должен содержать 4 цифры</string>
+    <string name="results">Результат:</string>
+    <string name="date_time_format_wrong">Формат даты и времени начала периода - yyyy-MM-ddHH:mm:ss, поле обязательное</string>
+    <string name="enter_payment_id">Должен быть указан ID платежа</string>
+    <string name="need_setup_settings">Нужно выполнить настройку</string>
+    <string name="setup">Настроить...</string>
+    <string name="additional_params">Дополнительные параметры</string>
+    <string name="phone_number">Номер телефона +70000000000</string>
+    <string name="email">E-mail</string>
 
 </resources>

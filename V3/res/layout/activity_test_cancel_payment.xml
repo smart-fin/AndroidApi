@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ru.toucan.example.method.CancelPayment">
+    tools:context="ru.toucan.api.ems.demo.method.CancelPayment">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -18,14 +18,7 @@
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/secureCode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Код доступа к приложению"
-                android:inputType="numberDecimal"
-                android:text="1111" />
+            <include layout="@layout/params_box"/>
 
 
             <EditText
@@ -33,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Id платежа"
+                android:hint="@string/payment_id"
                 android:inputType="numberDecimal" />
 
             <EditText
@@ -41,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Уникальный 16-ти значный номер транзакции (RRN)"
+                android:hint="@string/rrn"
                 android:inputType="numberDecimal" />
 
             <EditText
@@ -49,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Сумма 000.00"
+                android:hint="@string/sum"
                 android:inputType="numberDecimal" />
 
             <CheckBox
@@ -57,14 +50,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Фискализировать" />
+                android:text="@string/fiscalization" />
 
             <Button
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="pay"
-                android:text="Отменить платеж" />
+                android:text="@string/cancel_payment_short" />
 
 
         </LinearLayout>

@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ru.toucan.example.method.Settlement">
+    tools:context="ru.toucan.api.ems.demo.method.Settlement">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -18,33 +18,26 @@
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/secureCode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Код доступа к приложению"
-                android:inputType="numberDecimal"
-                android:text="1111" />
+            <include layout="@layout/params_box"/>
 
             <EditText
                 android:id="@+id/dateTimeFrom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="yyyy-MM-ddHH:mm:ss" />
+                android:hint="@string/date_time_format" />
 
             <EditText
                 android:id="@+id/dateTimeTill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="yyyy-MM-ddHH:mm:ss" />
+                android:hint="@string/date_time_format" />
 
             <Button
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="pay"
-                android:text="Получить" />
+                android:text="@string/get" />
 
 
         </LinearLayout>

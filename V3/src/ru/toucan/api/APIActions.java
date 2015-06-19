@@ -14,6 +14,8 @@ public class APIActions {
 
     public static final String RETURN_PAYMENT = "ru.toucan.RETURN_PAYMENT";
 
+    public static final String RETURN_CASH_PAYMENT = "ru.toucan.REFUND_CASH_PAYMENT";
+
     public static final String SETTLEMENT = "ru.toucan.SETTLEMENT";
 
     public static final String GET_PARAMETERS = "ru.toucan.GET_PARAMETERS";
@@ -21,5 +23,9 @@ public class APIActions {
     public static final String OPEN  = "ru.toucan.OPEN";
 
     public static final String CLOSE = "ru.toucan.CLOSE";
+
+    public static final String GET_LAST_ERROR = "ru.toucan.GET_LAST_ERROR";
+
+    public static final String GET_VERSION = "ru.toucan.GET_VERSION";
 
 }

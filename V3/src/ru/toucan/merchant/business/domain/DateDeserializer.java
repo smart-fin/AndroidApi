@@ -7,9 +7,12 @@ import org.codehaus.jackson.map.JsonDeserializer;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
+import static ru.toucan.merchant.common.logger.Logger.log;
 /**
  * Created by IntelliJ IDEA.
  * User: Nastya
@@ -29,6 +32,7 @@ public class DateDeserializer extends JsonDeserializer<Date> {
             format.setTimeZone( TimeZone.getTimeZone("GMT") );
             return format.parse(date);
         } catch (ParseException e) {
+            log(e);
             throw new RuntimeException(e);
         }
     }
