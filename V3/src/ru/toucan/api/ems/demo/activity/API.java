@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import ru.toucan.api.ems.demo.R;
+import ru.toucan.api.ems.demo.method.ReturnCashPayment;
 import ru.toucan.api.ems.demo.utils.Utils;
 import ru.toucan.api.ems.demo.method.CancelPayment;
 import ru.toucan.api.ems.demo.method.CashPayment;
@@ -58,6 +59,10 @@ public class API extends Activity {
 
     public void returnPayment(View v) {
         toActivity(ReturnPayment.class, getIntent().getIntExtra(Extras.paymentId, 0));
+    }
+
+    public void returnCashPayment(View v) {
+        toActivity(ReturnCashPayment.class, getIntent().getIntExtra(Extras.paymentId, 0));
     }
 
     public void settlement(View v) {

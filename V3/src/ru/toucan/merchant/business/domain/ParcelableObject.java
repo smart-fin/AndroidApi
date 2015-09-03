@@ -3,9 +3,9 @@ package ru.toucan.merchant.business.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.lang.reflect.Field;
+import org.codehaus.jackson.map.ObjectMapper;
 
-import ru.toucan.merchant.business.connector.JsonMapper;
+import java.lang.reflect.Field;
 
 /**
  * Created by Nastya on 04.12.2014 0:20 for 2can.android
@@ -15,7 +15,8 @@ public abstract class ParcelableObject implements Parcelable {
     public ParcelableObject(Parcel source) {
         String sourceJson = source.readString();
         try {
-            Object readValue = JsonMapper.getInstance().mapper.readValue(sourceJson, getClassType());
+            ObjectMapper ow = new ObjectMapper();
+            Object readValue =  ow.readValue(sourceJson, getClassType());
             for (Field field : getClassType().getDeclaredFields()) {
                 if (field.getAnnotations().length == 0) continue;
 
@@ -37,9 +38,9 @@ public abstract class ParcelableObject implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        ObjectMapper ow = new ObjectMapper();
         try {
-            String destJson = JsonMapper.getInstance().mapper.writeValueAsString(this);
-            dest.writeString(destJson);
+            dest.writeString(ow.writeValueAsString(this));
         } catch (Exception e) {
             e.printStackTrace();
         }

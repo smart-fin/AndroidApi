@@ -43,6 +43,10 @@
             android:screenOrientation="portrait"
             android:label="RETURN_PAYMENT"/>
         <activity
+            android:name="ru.toucan.api.ems.demo.method.ReturnCashPayment"
+            android:screenOrientation="portrait"
+            android:label="RETURN_CASH_PAYMENT"/>
+        <activity
             android:name="ru.toucan.api.ems.demo.method.Settlement"
             android:screenOrientation="portrait"
             android:label="SETTLEMENT"/>

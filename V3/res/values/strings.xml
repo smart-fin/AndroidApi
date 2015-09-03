@@ -14,8 +14,9 @@
     <string name="card_payment">Оплата платежной картой (PAYMENT)</string>
     <string name="cash_payment">Оплата наличными (CASH_PAYMENT)</string>
     <string name="view_payment">Информация об операции (VIEW_PAYMENT)</string>
-    <string name="cancel_payment">Отмена платежа (CANCEL_PAYMENT)</string>
-    <string name="return_payment">Возврат платежа (RETURN_PAYMENT)</string>
+    <string name="cancel_payment">Отмена безналичного платежа (CANCEL_PAYMENT)</string>
+    <string name="return_payment">Возврат безналичного платежа (RETURN_PAYMENT)</string>
+    <string name="return_cash_payment">Возврат наличного платежа (RETURN_CASH_PAYMENT)</string>
     <string name="settlement">Список успешных платежей (SETTLEMENT)</string>
     <string name="get_version">Получить версию мобильного терминала 2can (GET_VERSION)</string>
     <string name="get_last_error">Получить описание произошедшей ошибки (GET_LAST_ERROR)</string>
@@ -37,7 +38,7 @@
     <string name="close_short">Закрыть</string>
     <string name="get_parameters_short">Получить параметры</string>
     <string name="check">Проверить</string>
-    <string name="return_payment_info">Возвращать полную информацияю о платеже</string>
+    <string name="return_payment_info">Возвращать полную информация о платеже</string>
     <string name="card_payment_short">Оплатить картой</string>
     <string name="reason">Причина возврата</string>
     <string name="secureCardNumber">Безопасный номер карты</string>

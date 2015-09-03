@@ -56,6 +56,13 @@
                 android:onClick="returnPayment"
                 android:text="@string/return_payment" />
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="returnCashPayment"
+                android:text="@string/return_cash_payment" />
+
 
             <Button
                 android:layout_width="match_parent"

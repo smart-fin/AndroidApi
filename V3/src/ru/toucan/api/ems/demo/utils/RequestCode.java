@@ -14,6 +14,7 @@ public enum  RequestCode {
     VIEW_PAYMENT,
     CANCEL_PAYMENT,
     RETURN_PAYMENT,
+    RETURN_CASH_PAYMENT,
     SETTLEMENT,
     CLOSE;
 
