@@ -9,13 +9,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.Serializable;
-import java.util.HashMap;
 
 import ru.toucan.merchant.business.domain.print.Receipt4Print;
 import ru.toucan.merchant.business.domain_external.Payment;
+import ru.toucan.merchant.common.PaymentType;
 
 public class GeneralActivity extends Activity {
 
@@ -32,18 +31,18 @@ public class GeneralActivity extends Activity {
             public void onClick(View v) {
                 EditText amountView = (EditText) findViewById(R.id.amountView);
                 if (amountView.getText().length() == 0) {
-                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_amount), Toast.LENGTH_LONG);
+                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_amount), Toast.LENGTH_LONG).show();
                     return;
                 }
                 try {
                     Double.parseDouble(amountView.getText().toString());
                 } catch (NumberFormatException e) {
-                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_correct_amount), Toast.LENGTH_LONG);
+                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_correct_amount), Toast.LENGTH_LONG).show();
                     return;
                 }
                 EditText descView = (EditText) findViewById(R.id.descView);
                 if (descView.getText().length() == 0) {
-                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_desc), Toast.LENGTH_LONG);
+                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_desc), Toast.LENGTH_LONG).show();
                     return;
 
                 }
@@ -55,18 +54,18 @@ public class GeneralActivity extends Activity {
             public void onClick(View v) {
                 EditText amountView = (EditText) findViewById(R.id.amountView);
                 if (amountView.getText().length() == 0) {
-                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_amount), Toast.LENGTH_LONG);
+                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_amount), Toast.LENGTH_LONG).show();
                     return;
                 }
                 try {
                     Double.parseDouble(amountView.getText().toString());
                 } catch (NumberFormatException e) {
-                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_correct_amount), Toast.LENGTH_LONG);
+                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_correct_amount), Toast.LENGTH_LONG).show();
                     return;
                 }
                 EditText descView = (EditText) findViewById(R.id.descView);
                 if (descView.getText().length() == 0) {
-                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_desc), Toast.LENGTH_LONG);
+                    Toast.makeText(GeneralActivity.this, getString(R.string.enter_desc), Toast.LENGTH_LONG).show();
                     return;
 
                 }
@@ -107,15 +106,15 @@ public class GeneralActivity extends Activity {
         // packageName - имя пакета для возвращения результата проведения платежа
         intent.putExtra(Extras.packageName, getPackageName());
         String pin = ((EditText)findViewById(R.id.pinView)).getText().toString();
-        if (pin!=null && pin.length() > 0) {
+        if (pin.length() > 0) {
             intent.putExtra(Extras.pin, pin);
         }
-        // amount - сумма платежа
+        // сумма платежа
         intent.putExtra(Extras.amount, amount);
-        // desc - назначение платежа
+        // назначение платежа
         intent.putExtra(Extras.desc, desc);
-        // desc - назначение платежа
-        intent.putExtra(Extras.type, PaymentType.card);
+        // тип платежа
+        intent.putExtra(Extras.paymentType, PaymentType.card);
         // isLocalFiscalization = true  - фискализация в этом приложении
         //                      = false - фискализация в mPos
         final CheckBox checkBox = (CheckBox) findViewById(R.id.checkboxView);
@@ -123,7 +122,7 @@ public class GeneralActivity extends Activity {
         try {
             startActivityForResult(intent, PAYMENT_RESULT_CODE);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(GeneralActivity.this, e.getMessage(), Toast.LENGTH_LONG);
+            Toast.makeText(GeneralActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -148,8 +147,8 @@ public class GeneralActivity extends Activity {
         intent.putExtra(Extras.amount, amount);
         // desc - назначение платежа
         intent.putExtra(Extras.desc, desc);
-        // desc - назначение платежа
-        intent.putExtra(Extras.type, PaymentType.cash);
+        // тип платежа
+        intent.putExtra(Extras.paymentType, PaymentType.cash);
         // isLocalFiscalization = true  - фискализация в этом приложении
         //                      = false - фискализация в mPos
         final CheckBox checkBox = (CheckBox) findViewById(R.id.checkboxView);
@@ -157,7 +156,7 @@ public class GeneralActivity extends Activity {
         try {
             startActivityForResult(intent, PAYMENT_RESULT_CODE);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(GeneralActivity.this, e.getMessage(), Toast.LENGTH_LONG);
+            Toast.makeText(GeneralActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -181,7 +180,7 @@ public class GeneralActivity extends Activity {
         try {
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(GeneralActivity.this, e.getMessage(), Toast.LENGTH_LONG);
+            Toast.makeText(GeneralActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -198,13 +197,13 @@ public class GeneralActivity extends Activity {
             intent.putExtra(Extras.pin, pin);
         }
         // тип платежа
-        intent.putExtra(Extras.type, getIntent().getIntExtra(Extras.type, PaymentType.card)); // оплата картой
+        intent.putExtra(Extras.paymentType, getIntent().getSerializableExtra(Extras.paymentType));
         // Id платежа
         intent.putExtra(Extras.paymentId, getIntent().getStringExtra(Extras.paymentId));
         try {
             startActivityForResult(intent, GET_RECEIPT_RESULT_CODE);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(GeneralActivity.this, e.getMessage(), Toast.LENGTH_LONG);
+            Toast.makeText(GeneralActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -225,48 +224,52 @@ public class GeneralActivity extends Activity {
             case PAYMENT_RESULT_CODE:
                 String msg = null;
                 if (data == null) {
-                    msg = "Ошибка. ErrorCode: " + resultCode;
+                    msg = "Ошибка. Code: " + resultCode + " [" + /*APIResult.getResult(*/resultCode/*).toString()*/ + "]";
                 } else {
                     if (resultCode == 0) {
-                        msg = "Платеж завершен успешно";
+                        msg = getString(R.string.payment_finished);
                         Payment payment = data.getParcelableExtra(Extras.payment);
                         if (payment != null) {
                             getIntent().putExtra(Extras.paymentId, payment.paymentId);
-                            getIntent().putExtra(Extras.type, payment.type);
-                            msg += "\n" + payment.toString();
+                            getIntent().putExtra(Extras.paymentType, payment.type);
+                            msg += "\n\n" + payment.toString();
 
                             updateView();
                         } else {
-                            msg += "\n" + "payment is null";
+                            msg += "\n\n" + "payment is null";
                         }
                     } else {
-                        msg = "Ошибка. ErrorCode: " + resultCode;
+                        msg = getString(R.string.operation_not_finished)+"\n\nCode: " + resultCode + " [" + /*APIResult.getResult(*/resultCode/*).toString() */+ "]";
                     }
                 }
-                Alert.show("Внимание", msg, "Ок", null, GeneralActivity.this);
+                setResult(msg);
                 break;
             case GET_RECEIPT_RESULT_CODE:
                 if (data == null) {
-                    msg = "Ошибка. ErrorCode: " + resultCode;
+                    msg = getString(R.string.operation_not_finished) + "\n\nCode: " + resultCode + " [" + /*APIResult.getResult(*/resultCode/*).toString()*/ + "]";
                 } else {
                     if (resultCode == 0) {
-                        msg = "Фискальные данные получены";
+                        msg = getString(R.string.got_fiscal_data);
                         Payment payment = data.getParcelableExtra(Extras.payment);
                         if (payment != null) {
                             Receipt4Print receipt4Print = payment.receipt4Print;
-                            msg += "\n" + (receipt4Print != null ? receipt4Print.toString() : "receipt4print is null");
+                            msg += "\n\n" + (receipt4Print != null ? receipt4Print.toString() : "receipt4print is null");
                         } else {
-                            msg += "\n" + "payment is null";
+                            msg += "\n\n" + "payment is null";
                         }
                     } else {
-                        msg = "Ошибка. ErrorCode: " + resultCode;
+                        msg = getString(R.string.operation_not_finished) + "\n\nCode: " + resultCode + " [" + /*APIResult.getResult(*/resultCode/*).toString() */+ "]";
                     }
                 }
-                Alert.show("Внимание", msg, "Ок", null, GeneralActivity.this);
+                setResult(msg);
                 break;
             default:
-                Alert.show("Внимание", "requestCode (" + requestCode + ")", "Ок", null, GeneralActivity.this);
+                setResult("requestCode (" + requestCode + ")");
         }
+    }
+
+    private void setResult(String text) {
+        ((TextView)findViewById(R.id.resultView)).setText(text);
     }
 
     private void updateView() {

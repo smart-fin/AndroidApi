@@ -6,4 +6,15 @@
     <string name="enter_desc">Введите назначение платежа</string>
     <string name="enter_pin">Код-доступа</string>
     <string name="local_fiscalization">Локальная фискализация</string>
+    <string name="history">История</string>
+    <string name="get_fiscal_data">Получить фискальные данные</string>
+    <string name="pay_cash">Оплатить налом</string>
+    <string name="pay_card">Оплатить картой</string>
+    <string name="desc">Назначение</string>
+    <string name="amount">Сумма</string>
+    <string name="payment_finished">Платеж завершен успешно</string>
+    <string name="operation_not_finished">Операция не завершена</string>
+    <string name="error">Ошибка</string>
+    <string name="got_fiscal_data">Фискальные данные получены</string>
+    <string name="operation_result">Результат операции:</string>
 </resources>

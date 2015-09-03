@@ -10,6 +10,7 @@ public class Extras {
     public static String packageName = "packageName";
     public static String pin = "Pin";
     public static String type = "type";
+    public static String paymentType = "paymentType";
     public static String paymentId = "paymentId";
     public static String amount = "amount";
     public static String desc = "desc";

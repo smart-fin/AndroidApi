@@ -9,11 +9,11 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import ru.toucan.merchant.business.domain.ParcelableObject;
 import ru.toucan.merchant.business.domain.print.Receipt4Print;
+import ru.toucan.merchant.common.PaymentType;
 
 /**
  * Created by Nastya on 12.11.14.
  */
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Payment extends ParcelableObject {
@@ -22,7 +22,7 @@ public class Payment extends ParcelableObject {
     public String paymentId;
 
     @JsonProperty("Type")
-    public int type;
+    public PaymentType type;
 
     @JsonProperty("Receipt4Print")
     public Receipt4Print receipt4Print;
@@ -30,7 +30,7 @@ public class Payment extends ParcelableObject {
     public Payment() {
     }
 
-    public Payment(String paymentId, int type, Receipt4Print receipt4Print) {
+    public Payment(String paymentId, PaymentType type, Receipt4Print receipt4Print) {
         this.paymentId = paymentId;
         this.type = type;
         this.receipt4Print = receipt4Print;
@@ -53,13 +53,4 @@ public class Payment extends ParcelableObject {
             return new Payment[size];
         }
     };
-
-    @Override
-    public String toString() {
-        return "Payment{" +
-                "paymentId=" + paymentId + ", " +
-                "type=" + type + ", " +
-                "receipt4Print=" + receipt4Print +
-                '}';
-    }
 }

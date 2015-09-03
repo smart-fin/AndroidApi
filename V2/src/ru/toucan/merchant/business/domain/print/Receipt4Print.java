@@ -5,17 +5,20 @@ import android.os.Parcelable;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.ObjectWriter;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import java.net.URLEncoder;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import ru.toucan.example.utils.Logger;
 import ru.toucan.merchant.business.domain.DateDeserializer;
 import ru.toucan.merchant.business.domain.DateSerializer;
 import ru.toucan.merchant.business.domain.ParcelableObject;
+import ru.toucan.merchant.business.domain.UrlDeserializer;
+import ru.toucan.merchant.business.domain.UrlSerializer;
 
 /**
  * Created by Nastya on 24.07.2014.
@@ -27,7 +30,6 @@ public class Receipt4Print extends ParcelableObject {
     public Receipt4Print() {
     }
 
-
     @JsonProperty("Items")
     public ArrayList<Item> items;
 
@@ -35,7 +37,10 @@ public class Receipt4Print extends ParcelableObject {
     public String authCode;
 
     @JsonProperty("CashRegisterId")
-    public Integer cashRegisterId;
+    public int cashRegisterId;
+
+    @JsonProperty("TId")
+    public Integer tId;
 
     @JsonProperty("Company")
     public String company;
@@ -54,11 +59,17 @@ public class Receipt4Print extends ParcelableObject {
     @JsonProperty("Id")
     public Integer id;
 
+    @JsonProperty("Ptk")
+    public Integer ptk;
+
     @JsonProperty("INN")
     public String inn;
 
     @JsonProperty("Num")
     public String num;
+
+    @JsonProperty("PaymentNum")
+    public String payNum;
 
     @JsonProperty("OfflineNum")
     public String offlineNum;
@@ -87,6 +98,11 @@ public class Receipt4Print extends ParcelableObject {
     @JsonProperty("OFDPrintText")
     public String OFDPrintText;
 
+    @JsonProperty("UrlQrCode")
+    @JsonDeserialize(using = UrlDeserializer.class)
+    @JsonSerialize(using = UrlSerializer.class)
+    public String URLQRcode;
+
     @JsonProperty
     public String errorMessage;
 
@@ -114,33 +130,12 @@ public class Receipt4Print extends ParcelableObject {
 
     @Override
     public String toString() {
-        String encodeMessage = null;
-        if (errorMessage != null)
-            try {
-                encodeMessage = URLEncoder.encode(errorMessage, "UTF-8");
-            } catch (Exception e) {
-                Logger.log(e);
-            }
-        return "Receipt4Print{" +
-                "items=" + items + ", " +
-                "authCode=" + authCode + ", " +
-                "cashRegisterId=" + cashRegisterId + ", " +
-                "company=" + company + ", " +
-                "companyAddress=" + companyAddress + ", " +
-                "phone=" + phone + ", " +
-                "dateTime=" + dateTime + ", " +
-                "id=" + id + ", " +
-                "inn=" + inn + ", " +
-                "num=" + num + ", " +
-                "offlineNum=" + offlineNum + ", " +
-                "deviceOfflineNum=" + deviceOfflineNum + ", " +
-                "lastFourDigits=" + lastFourDigits + ", " +
-                "deposit=" + deposit + ", " +
-                "vatSum=" + vatSum + ", " +
-                "vatRate=" + vatRate + ", " +
-                "taxationType=" + taxationType + ", " +
-                "OFDPrintText=" + OFDPrintText + ", " +
-                "errorMessage=" + encodeMessage +
-                '}';
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        try {
+            return ow.writeValueAsString(this);
+        } catch (IOException e) {
+            return "Receipt4Print == null 0_O";
+        }
     }
+
 }

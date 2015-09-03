@@ -5,9 +5,6 @@ import android.os.Parcelable;
 
 import java.lang.reflect.Field;
 
-import ru.toucan.example.utils.Logger;
-import ru.toucan.merchant.business.domain.JsonMapper;
-import ru.toucan.example.utils.Logger;
 
 /**
  * Created by Nastya on 04.12.2014 0:20 for 2can.android
@@ -25,7 +22,7 @@ public abstract class ParcelableObject implements Parcelable {
                 field.set(this, fieldValue);
             }
         } catch (Exception e) {
-            Logger.log(e);
+            e.printStackTrace();
         }
     }
 
@@ -43,7 +40,7 @@ public abstract class ParcelableObject implements Parcelable {
             String destJson = JsonMapper.getInstance().mapper.writeValueAsString(this);
             dest.writeString(destJson);
         } catch (Exception e) {
-            Logger.log(e);
+            e.printStackTrace();
         }
     }
 

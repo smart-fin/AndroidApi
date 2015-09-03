@@ -27,6 +27,7 @@ public class DateSerializer extends JsonSerializer<Date> {
 
     @Override
     public void serialize(Date value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
         String dateString = formatter.format(value);
         jgen.writeString(dateString);
     }

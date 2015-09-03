@@ -1,82 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:layout_height="fill_parent">
 
-    <EditText
-        android:id="@+id/pinView"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/enter_pin"
-        android:inputType="numberDecimal" />
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-    <AbsoluteLayout
-        android:layout_width="fill_parent"
-        android:layout_height="2px"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray" />
+        <EditText
+            android:id="@+id/pinView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_pin"
+            android:inputType="numberDecimal" />
 
-    <EditText
-        android:id="@+id/amountView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:digits="0123456789."
-        android:hint="Сумма"
-        android:inputType="numberDecimal" />
+        <AbsoluteLayout
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray" />
 
-    <EditText
-        android:id="@+id/descView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Назначение"
-        android:inputType="textCapSentences" />
-    <CheckBox
-        android:id="@+id/checkboxView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/local_fiscalization"
-        android:inputType="textCapSentences" />
+        <EditText
+            android:id="@+id/amountView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789."
+            android:hint="@string/amount"
+            android:inputType="numberDecimal" />
 
-    <Button
-        android:id="@+id/btnPayment"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Оплатить картой" />
+        <EditText
+            android:id="@+id/descView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/desc"
+            android:inputType="textCapSentences" />
 
-    <Button
-        android:id="@+id/btnPaymentCash"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Оплатить налом" />
+        <CheckBox
+            android:id="@+id/checkboxView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/local_fiscalization"
+            android:inputType="textCapSentences" />
 
-    <AbsoluteLayout
-        android:layout_width="fill_parent"
-        android:layout_height="2px"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray" />
+        <Button
+            android:id="@+id/btnPayment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pay_card" />
 
-    <Button
-        android:id="@+id/btnHistory"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="История" />
+        <Button
+            android:id="@+id/btnPaymentCash"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pay_cash" />
 
-    <AbsoluteLayout
-        android:layout_width="fill_parent"
-        android:layout_height="2px"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray" />
+        <AbsoluteLayout
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray" />
 
-    <Button
-        android:id="@+id/btnGetReceipt4Print"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Получить фискальные данные" />
+        <Button
+            android:id="@+id/btnHistory"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/history" />
 
+        <AbsoluteLayout
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btnGetReceipt4Print"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/get_fiscal_data" />
 
+        <AbsoluteLayout
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/operation_result"/>
+
+       <TextView
+            android:id="@+id/resultView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</ScrollView>

@@ -36,7 +36,7 @@ intent.putExtra("packageName", packageName);
 intent.putExtra("Pin", Pin);
 intent.putExtra("amount", amount);
 intent.putExtra("desc", desc);
-intent.putExtra("type", 1);
+intent.putExtra("paymentType", "card");
 intent.putExtra("isLocalFiscalization", false);
 startActivityForResult(intent, PAYMENT_RESULT_CODE);
 ```
@@ -44,9 +44,9 @@ startActivityForResult(intent, PAYMENT_RESULT_CODE);
 Имя параметра|Тип|Описание|Обязательный или нет
 -------------|---|--------|-------------------
 packageName | String | имя пакета вашего приложения | обязательный
-amount | int | сумма платежа в МДЕ (в копейках) - целочисленный формат | обязательный
+amount | double | сумма платежа в рублях | обязательный
 desc | String | назначение платежа | обязательный
-type | int | тип платежа (возможные значения: 1 - card, 2 - cash), при отсутствии в параметрах запроса будет запрошен у пользователя | не обязательный
+paymentType | PaymentType | тип платежа (enum: card(1), cash(2)), при отсутствии в параметрах запроса будет запрошен у пользователя | не обязательный
 isLocalFiscalization | Boolean | локальная фискализация (true), фискализация в mPos (false) | не обязательный
 Pin | String | код доступа к Мобильному терминалу, при отсутствии в параметрах запроса будет запрошен у пользователя | не обязательный
 
@@ -68,7 +68,7 @@ ru.toucan.merchant.business.domain_external.Payment payment = data.getParcelable
 Имя параметра|Тип|Описание
 -------------|---|--------
 paymentId | String | ID платежа
-type | int | тип платежа (возможные значения: 1 - cardPayment, 2 - cashPayment, 3 - refundCard(voidCard), 4 - refundCash(voidCash)
+PaymentType | PaymentType | тип платежа (enum: card(1), cash(2), refundCard(3), refundCash(4)
 receipt4print | ru.toucan.merchant.business.domain.print.Receipt4Print (см. описание ниже) | фискальные данные (если в запросе был прописан параметр isLocalFiscalization == true и мерчант зарегистрирован в ОФД)
 
 Описание ru.toucan.merchant.business.domain.print.Receipt4Print:
@@ -175,7 +175,7 @@ Pin | String | код доступа к Мобильному терминалу,
 Intent intent = new Intent("ru.toucan.CALL_GET_RECEIPT");
 intent.putExtra("packageName", packageName);
 intent.putExtra("Pin", Pin);
-intent.putExtra("type", type);
+intent.putExtra("paymentType", paymentType);
 intent.putExtra("paymentId", paymentId);
 startActivityForResult(intent, GET_RECEIPT_RESULT_CODE);
 ```
@@ -184,7 +184,7 @@ startActivityForResult(intent, GET_RECEIPT_RESULT_CODE);
 -------------|---|--------|-------------------
 packageName | String | имя пакета вашего приложения | обязательный
 paymentId | String | ID платежа | обязательный
-type | int | тип платежа (возможные значения: 1 - cardPayment, 2 - cashPayment, 3 - refundCard(voidCard), 4 - refundCash(voidCash) | обязательный
+PaymentType | PaymentType | тип платежа (enum: card(1), cash(2), refundCard(3), refundCash(4) | обязательный
 Pin | String | код доступа к Мобильному терминалу, при отсутствии в параметрах запроса будет запрошен у пользователя | не обязательный
 
 #### Получение ответа

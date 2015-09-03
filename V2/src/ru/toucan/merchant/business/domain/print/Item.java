@@ -7,9 +7,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import java.net.URLEncoder;
-
-import ru.toucan.example.utils.Logger;
 import ru.toucan.merchant.business.domain.ParcelableObject;
 
 /**
@@ -24,6 +21,9 @@ public class Item extends ParcelableObject {
 
     @JsonProperty("Description")
     public String desc;
+
+    @JsonProperty("Count")
+    public int count = 1;
 
     @JsonProperty("Amount")
     public double amount;
@@ -45,19 +45,4 @@ public class Item extends ParcelableObject {
             return new Item[size];
         }
     };
-
-    @Override
-    public String toString() {
-        String encodeDesc = null;
-        if (desc != null)
-            try {
-                encodeDesc = URLEncoder.encode(desc, "UTF-8");
-            } catch (Exception e) {
-                Logger.log(e.getLocalizedMessage());
-            }
-        return "Item{" +
-                "amount=" + amount + ", " +
-                "desc=" + encodeDesc +
-                '}';
-    }
 }
